@@ -5,99 +5,111 @@ using UnityEngine;
 
 namespace TPSBR
 {
-	public interface IPlayer
-	{
-		string           UserID          { get; }
-		string           Nickname        { get; }
-		NetworkPrefabId  AgentPrefabID   { get; }
-		string			 UnityID         { get; }
-	}
+    public interface IPlayer
+    {
+        // EDITED
+        string AvatarUrl { get; }
+        int Gender { get; }
+        // END
 
-	public class PlayerData : IPlayer
-	{
-		// PUBLIC MEMBERS
+        string UserID { get; }
+        string Nickname { get; }
+        NetworkPrefabId AgentPrefabID { get; }
+        string UnityID { get; }
+    }
 
-		public string           UserID          => _userID;
-		public string           UnityID         { get => _unityID; set => _unityID = value; }
-		public NetworkPrefabId  AgentPrefabID   => GetAgentPrefabID();
-		public string           Nickname        { get { return _nickname; } set { _nickname = value; IsDirty = true; } }
-		public string           AgentID         { get { return _agentID; } set { _agentID = value; IsDirty = true; } }
+    public class PlayerData : IPlayer
+    {
+        // EDITED
+        public string AvatarUrl { get { return _avatarurl; } set { _avatarurl = value; IsDirty = true; } }
+        [SerializeField]
+        private string _avatarurl;  // Integration
+        public int Gender { get { return _gender; } set { _gender = value; IsDirty = true; } }
+        [SerializeField]
+        private int _gender;  // Integration
+        // END
 
-		public bool             IsDirty         { get; private set; }
+        // PUBLIC MEMBERS
 
-		// PRIVATE MEMBERS
+        public string UserID => _userID;
+        public string UnityID { get => _unityID; set => _unityID = value; }
+        public NetworkPrefabId AgentPrefabID => GetAgentPrefabID();
+        public string Nickname { get { return _nickname; } set { _nickname = value; IsDirty = true; } }
+        public string AgentID { get { return _agentID; } set { _agentID = value; IsDirty = true; } }
+        public bool IsDirty { get; private set; }
 
-		[SerializeField]
-		private string _userID;
-		[SerializeField]
-		private string _unityID;
-		[SerializeField]
-		private string _nickname;
-		[SerializeField]
-		private string _agentID;
+        // PRIVATE MEMBERS
 
-		[SerializeField]
-		private bool _isLocked;
-		[SerializeField]
-		private int _lastProcessID;
+        [SerializeField]
+        private string _userID;
+        [SerializeField]
+        private string _unityID;
+        [SerializeField]
+        private string _nickname;
+        [SerializeField]
+        private string _agentID;
+        [SerializeField]
+        private bool _isLocked;
+        [SerializeField]
+        private int _lastProcessID;
 
-		// CONSTRUCTORS
+        // CONSTRUCTORS
 
-		public PlayerData(string userID)
-		{
-			_userID = userID;
-		}
+        public PlayerData(string userID)
+        {
+            _userID = userID;
+        }
 
-		// PUBLIC METHODS
+        // PUBLIC METHODS
 
-		public void ClearDirty()
-		{
-			IsDirty = false;
-		}
+        public void ClearDirty()
+        {
+            IsDirty = false;
+        }
 
-		public bool IsLocked(bool checkProcess = true)
-		{
-			if (_isLocked == false)
-				return false;
+        public bool IsLocked(bool checkProcess = true)
+        {
+            if (_isLocked == false)
+                return false;
 
-			if (checkProcess == true)
-			{
-				try
-				{
-					var process = Process.GetProcessById(_lastProcessID);
-				}
-				catch (Exception)
-				{
-					// Process not running
-					return false;
-				}
-			}
+            if (checkProcess == true)
+            {
+                try
+                {
+                    var process = Process.GetProcessById(_lastProcessID);
+                }
+                catch (Exception)
+                {
+                    // Process not running
+                    return false;
+                }
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		public void Lock()
-		{
-			// When running multiple instances of the game on same machine we want to lock used player data
+        public void Lock()
+        {
+            // When running multiple instances of the game on same machine we want to lock used player data
 
-			_isLocked = true;
-			_lastProcessID = Process.GetCurrentProcess().Id;
-		}
+            _isLocked = true;
+            _lastProcessID = Process.GetCurrentProcess().Id;
+        }
 
-		public void Unlock()
-		{
-			_isLocked = false;
-		}
+        public void Unlock()
+        {
+            _isLocked = false;
+        }
 
-		// PRIVATE METHODS
+        // PRIVATE METHODS
 
-		private NetworkPrefabId GetAgentPrefabID()
-		{
-			if (_agentID.HasValue() == false)
-				return default;
+        private NetworkPrefabId GetAgentPrefabID()
+        {
+            if (_agentID.HasValue() == false)
+                return default;
 
-			var setup = Global.Settings.Agent.GetAgentSetup(_agentID);
-			return setup != null ? setup.AgentPrefabId : default;
-		}
-	}
+            var setup = Global.Settings.Agent.GetAgentSetup(_agentID);
+            return setup != null ? setup.AgentPrefabId : default;
+        }
+    }
 }

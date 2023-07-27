@@ -3,161 +3,178 @@ using TMPro;
 
 namespace TPSBR.UI
 {
-	public class UIMainMenuView : UIView
-	{
-		// PRIVATE MEMBERS
+    public class UIMainMenuView : UIView
+    {
+        // PRIVATE MEMBERS
 
-		[SerializeField]
-		private UIButton _playButton;
-		[SerializeField]
-		private UIButton _settingsButton;
-		[SerializeField]
-		private UIButton _creditsButton;
-		[SerializeField]
-		private UIButton _changeNicknameButton;
-		[SerializeField]
-		private UIButton _quitButton;
-		[SerializeField]
-		private UIButton _playerButton;
-		[SerializeField]
-		private UIPlayer _player;
-		[SerializeField]
-		private TextMeshProUGUI _agentName;
-		[SerializeField]
-		private TextMeshProUGUI _applicationVersion;
+        [SerializeField]
+        private UIButton _playButton;
+        [SerializeField]
+        private UIButton _settingsButton;
+        [SerializeField]
+        private UIButton _creditsButton;
+        [SerializeField]
+        private UIButton _changeNicknameButton;
 
-		// PUBLIC METHODS
+        // EDITED
+        [SerializeField]
+        private UIButton _changeAvatarurlButton;
+        // END
 
-		public void OnPlayerButtonPointerEnter()
-		{
-			Context.PlayerPreview.ShowOutline(true);
-		}
+        [SerializeField]
+        private UIButton _quitButton;
+        [SerializeField]
+        private UIButton _playerButton;
+        [SerializeField]
+        private UIPlayer _player;
+        [SerializeField]
+        private TextMeshProUGUI _agentName;
+        [SerializeField]
+        private TextMeshProUGUI _applicationVersion;
 
-		public void OnPlayerButtonPointerExit()
-		{
-			Context.PlayerPreview.ShowOutline(false);
-		}
 
-		// UIView INTEFACE
+        // PUBLIC METHODS
 
-		protected override void OnInitialize()
-		{
-			base.OnInitialize();
+        public void OnPlayerButtonPointerEnter()
+        {
+            Context.PlayerPreview.ShowOutline(true);
+        }
 
-			_settingsButton.onClick.AddListener(OnSettingsButton);
-			_playButton.onClick.AddListener(OnPlayButton);
-			_creditsButton.onClick.AddListener(OnCreditsButton);
-			_changeNicknameButton.onClick.AddListener(OnChangeNicknameButton);
-			_quitButton.onClick.AddListener(OnQuitButton);
-			_playerButton.onClick.AddListener(OnPlayerButton);
+        public void OnPlayerButtonPointerExit()
+        {
+            Context.PlayerPreview.ShowOutline(false);
+        }
 
-			_applicationVersion.text = $"Version {Application.version}";
-		}
+        // UIView INTEFACE
 
-		protected override void OnDeinitialize()
-		{
-			_settingsButton.onClick.RemoveListener(OnSettingsButton);
-			_playButton.onClick.RemoveListener(OnPlayButton);
-			_creditsButton.onClick.RemoveListener(OnCreditsButton);
-			_changeNicknameButton.onClick.RemoveListener(OnChangeNicknameButton);
-			_quitButton.onClick.RemoveListener(OnQuitButton);
-			_playerButton.onClick.RemoveListener(OnPlayerButton);
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
 
-			base.OnDeinitialize();
-		}
+            _settingsButton.onClick.AddListener(OnSettingsButton);
+            _playButton.onClick.AddListener(OnPlayButton);
+            _creditsButton.onClick.AddListener(OnCreditsButton);
+            _changeNicknameButton.onClick.AddListener(OnChangeNicknameButton);
+            _changeAvatarurlButton.onClick.AddListener(OnChangeAvatarurlButton);
+            _quitButton.onClick.AddListener(OnQuitButton);
+            _playerButton.onClick.AddListener(OnPlayerButton);
 
-		protected override void OnOpen()
-		{
-			base.OnOpen();
+            _applicationVersion.text = $"Version {Application.version}";
+        }
 
-			UpdatePlayer();
+        protected override void OnDeinitialize()
+        {
+            _settingsButton.onClick.RemoveListener(OnSettingsButton);
+            _playButton.onClick.RemoveListener(OnPlayButton);
+            _creditsButton.onClick.RemoveListener(OnCreditsButton);
+            _changeNicknameButton.onClick.RemoveListener(OnChangeNicknameButton);
+            _changeAvatarurlButton.onClick.RemoveListener(OnChangeAvatarurlButton);
+            _quitButton.onClick.RemoveListener(OnQuitButton);
+            _playerButton.onClick.RemoveListener(OnPlayerButton);
 
-			Global.PlayerService.PlayerDataChanged += OnPlayerDataChanged;
-			Context.PlayerPreview.ShowAgent(Context.PlayerData.AgentID);
+            base.OnDeinitialize();
+        }
 
-			Context.PlayerPreview.ShowOutline(false);
-		}
+        protected override void OnOpen()
+        {
+            base.OnOpen();
 
-		protected override void OnClose()
-		{
-			Global.PlayerService.PlayerDataChanged -= OnPlayerDataChanged;
+            UpdatePlayer();
 
-			Context.PlayerPreview.ShowOutline(false);
+            Global.PlayerService.PlayerDataChanged += OnPlayerDataChanged;
+            Context.PlayerPreview.ShowAgent(Context.PlayerData.AgentID);
 
-			base.OnClose();
-		}
+            Context.PlayerPreview.ShowOutline(false);
+        }
 
-		protected override bool OnBackAction()
-		{
-			if (IsInteractable == false)
-				return false;
+        protected override void OnClose()
+        {
+            Global.PlayerService.PlayerDataChanged -= OnPlayerDataChanged;
 
-			OnQuitButton();
-			return true;
-		}
+            Context.PlayerPreview.ShowOutline(false);
 
-		// PRIVATE METHODS
+            base.OnClose();
+        }
 
-		private void OnSettingsButton()
-		{
-			Open<UISettingsView>();
-		}
+        protected override bool OnBackAction()
+        {
+            if (IsInteractable == false)
+                return false;
 
-		private void OnPlayButton()
-		{
-			Open<UIMultiplayerView>();
-		}
+            OnQuitButton();
+            return true;
+        }
 
-		private void OnCreditsButton()
-		{
-			Open<UICreditsView>();
-		}
+        // PRIVATE METHODS
 
-		private void OnChangeNicknameButton()
-		{
-			var changeNicknameView = Open<UIChangeNicknameView>();
-			changeNicknameView.SetData("CHANGE NICKNAME", false);
-		}
+        private void OnSettingsButton()
+        {
+            Open<UISettingsView>();
+        }
 
-		private void OnQuitButton()
-		{
-			var dialog = Open<UIYesNoDialogView>();
+        private void OnPlayButton()
+        {
+            Open<UIMultiplayerView>();
+        }
 
-			dialog.Title.text = "EXIT GAME";
-			dialog.Description.text = "Are you sure you want to exit the game?";
+        private void OnCreditsButton()
+        {
+            Open<UICreditsView>();
+        }
 
-			dialog.YesButtonText.text = "EXIT";
-			dialog.NoButtonText.text = "CANCEL";
+        private void OnChangeNicknameButton()
+        {
+            var changeNicknameView = Open<UIChangeNicknameView>();
+            changeNicknameView.SetData("CHANGE NICKNAME", false);
+        }
 
-			dialog.HasClosed += (result) =>
-			{
-				if (result == true)
-				{
-					SceneUI.Scene.Quit();
-				}
-			};
-		}
+        // EDITED
+        private void OnChangeAvatarurlButton()
+        {
+            var changeAvatarurlView = Open<UIChangeAvatarUrlView>();
+            changeAvatarurlView.SetData("CHANGE AVATAR", false);
+        }
+        // END
 
-		private void OnPlayerButton()
-		{
-			var agentSelection = Open<UIAgentSelectionView>();
-			agentSelection.BackView = this;
+        private void OnQuitButton()
+        {
+            var dialog = Open<UIYesNoDialogView>();
 
-			Close();
-		}
+            dialog.Title.text = "EXIT GAME";
+            dialog.Description.text = "Are you sure you want to exit the game?";
 
-		private void OnPlayerDataChanged(PlayerData playerData)
-		{
-			UpdatePlayer();
-		}
+            dialog.YesButtonText.text = "EXIT";
+            dialog.NoButtonText.text = "CANCEL";
 
-		private void UpdatePlayer()
-		{
-			_player.SetData(Context, Context.PlayerData);
-			Context.PlayerPreview.ShowAgent(Context.PlayerData.AgentID);
+            dialog.HasClosed += (result) =>
+            {
+                if (result == true)
+                {
+                    SceneUI.Scene.Quit();
+                }
+            };
+        }
 
-			var setup = Context.Settings.Agent.GetAgentSetup(Context.PlayerData.AgentID);
-			_agentName.text = setup != null ? $"Playing as {setup.DisplayName}" : string.Empty;
-		}
-	}
+        private void OnPlayerButton()
+        {
+            var agentSelection = Open<UIAgentSelectionView>();
+            agentSelection.BackView = this;
+
+            Close();
+        }
+
+        private void OnPlayerDataChanged(PlayerData playerData)
+        {
+            UpdatePlayer();
+        }
+
+        private void UpdatePlayer()
+        {
+            _player.SetData(Context, Context.PlayerData);
+            Context.PlayerPreview.ShowAgent(Context.PlayerData.AgentID);
+
+            var setup = Context.Settings.Agent.GetAgentSetup(Context.PlayerData.AgentID);
+            _agentName.text = setup != null ? $"Playing as {setup.DisplayName}" : string.Empty;
+        }
+    }
 }

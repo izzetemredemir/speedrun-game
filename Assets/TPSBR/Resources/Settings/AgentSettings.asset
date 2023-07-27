@@ -13,15 +13,6 @@ MonoBehaviour:
   m_Name: AgentSettings
   m_EditorClassIdentifier: 
   _agents:
-  - _id: Agent.Solana
-    _displayName: Solana Warrior
-    _description: Nobody knows where Solana Warrior came from. There are rumors that
-      he was a high profile Onchain hitman before undergoing a series of experimental
-      operations to become half human and half machine. He is famous for not following
-      any sort of rules which makes him particularly dangerous... thing.
-    _icon: {fileID: 21300000, guid: 9f4607891e0c46343aa052ce9c2017f4, type: 3}
-    _agentPrefab: {fileID: 39480613227771221, guid: 6fbccfd466fe11e46a067cfc64b70f45, type: 3}
-    _menuAgentPrefab: {fileID: 7670578947128472717, guid: eec423ebfa5bddd488573a1018592e35, type: 3}
   - _id: Agent.Marine
     _displayName: Marine
     _description: Marine, also known as The Beast, fought in several war conflicts
@@ -30,8 +21,8 @@ MonoBehaviour:
       army due to his unhealthy obsession with explosives. Now working as a veteran
       for hire.
     _icon: {fileID: 21300000, guid: 074e27806d341f744a7b4c543c417d0f, type: 3}
-    _agentPrefab: {fileID: 4282139267378355678, guid: ae02aef1211f3264a935ca8d5f12b077, type: 3}
-    _menuAgentPrefab: {fileID: 3319942621441823766, guid: d2f400a1087a7f54cb70aaf57d3abc0e, type: 3}
+    _agentPrefab: {fileID: 7474251926991540351, guid: 91bd50b2b85386649bc3a32d1fdde433, type: 3}
+    _menuAgentPrefab: {fileID: 534883156551135047, guid: 359d93393141eb8468be6f018348b341, type: 3}
   - _id: Agent.Soldier
     _displayName: Soldier 66
     _description: Nobody knows where Soldier 66 came from. There are rumors that
@@ -39,5 +30,5 @@ MonoBehaviour:
       to become half human and half machine. He is famous for not following any sort
       of rules which makes him particularly dangerous... thing.
     _icon: {fileID: 21300000, guid: 9f4607891e0c46343aa052ce9c2017f4, type: 3}
-    _agentPrefab: {fileID: 4282139267378355678, guid: b9f04dd6fe389b04b8d0b0bfed89e770, type: 3}
-    _menuAgentPrefab: {fileID: 2529299778790674133, guid: 4e02b22e9ad831646a16d09da1821534, type: 3}
+    _agentPrefab: {fileID: 7474251926991540351, guid: 91bd50b2b85386649bc3a32d1fdde433, type: 3}
+    _menuAgentPrefab: {fileID: 534883156551135047, guid: 359d93393141eb8468be6f018348b341, type: 3}

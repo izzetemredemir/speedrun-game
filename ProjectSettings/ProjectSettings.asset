@@ -770,7 +770,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     Android: FUSION_WEAVER;FUSION_BURST
     Server: FUSION_WEAVER;FUSION_BURST
-    Standalone: FUSION_WEAVER;FUSION_BURST
+    Standalone: FUSION_WEAVER;FUSION_BURST;READY_PLAYER_ME
     WebGL: FUSION_WEAVER;FUSION_BURST
     iPhone: FUSION_WEAVER;FUSION_BURST
   additionalCompilerArguments: {}

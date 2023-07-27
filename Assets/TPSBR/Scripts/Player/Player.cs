@@ -2,176 +2,220 @@ using Fusion;
 
 namespace TPSBR
 {
-	using UnityEngine;
+    using UnityEngine;
 
-	public struct PlayerStatistics : INetworkStruct
-	{
-		public PlayerRef PlayerRef;
-		public short     ExtraLives;
-		public short     Kills;
-		public short     Deaths;
-		public short     Score;
-		public TickTimer RespawnTimer;
-		public byte      Position;
+    public struct PlayerStatistics : INetworkStruct
+    {
+        public PlayerRef PlayerRef;
+        public short ExtraLives;
+        public short Kills;
+        public short Deaths;
+        public short Score;
+        public TickTimer RespawnTimer;
+        public byte Position;
 
-		public byte      KillsInRow;
-		public TickTimer KillsInRowCooldown;
-		public byte      KillsWithoutDeath;
+        public byte KillsInRow;
+        public TickTimer KillsInRowCooldown;
+        public byte KillsWithoutDeath;
 
-		public bool      IsValid         => PlayerRef.IsValid;
-		public bool      IsAlive         { get { return _flags.IsBitSet(0); } set { _flags.SetBit(0, value); } }
-		public bool      IsEliminated    { get { return _flags.IsBitSet(1); } set { _flags.SetBit(1, value); } }
+        public bool IsValid => PlayerRef.IsValid;
+        public bool IsAlive { get { return _flags.IsBitSet(0); } set { _flags.SetBit(0, value); } }
+        public bool IsEliminated { get { return _flags.IsBitSet(1); } set { _flags.SetBit(1, value); } }
 
-		private byte     _flags;
-	}
+        private byte _flags;
+    }
 
-	public class Player : ContextBehaviour, IPlayer
-	{
-		// PUBLIC MEMBERS
+    public class Player : ContextBehaviour, IPlayer
+    {
+        // EDITED
+        [Networked, Capacity(58)]
+        public string AvatarUrl { get; private set; }
+        [Networked, Capacity(1)]
+        public int Gender { get; private set; }
+        // END
 
-		public bool             IsInitialized  { get; private set; }
-		public string           UserID         { get; private set; }
-		public string			UnityID        { get; private set; }
 
-		[Networked, Capacity(24)]
-		public string           Nickname       { get; private set; }
-		[Networked]
-		public PlayerStatistics Statistics     { get; private set; }
+        // PUBLIC MEMBERS
 
-		[Networked(OnChanged = nameof(OnActiveAgentChanged), OnChangedTargets = OnChangedTargets.InputAuthority)]
-		public Agent            ActiveAgent    { get; private set; }
-		[Networked]
-		public NetworkPrefabId  AgentPrefabID  { get; set; }
+        public bool IsInitialized { get; private set; }
+        public string UserID { get; private set; }
+        public string UnityID { get; private set; }
 
-		// PRIVATE METHODS
+        [Networked, Capacity(24)]
+        public string Nickname { get; private set; }
+        [Networked]
+        public PlayerStatistics Statistics { get; private set; }
 
-		private PlayerRef       _observedPlayer;
+        [Networked(OnChanged = nameof(OnActiveAgentChanged), OnChangedTargets = OnChangedTargets.InputAuthority)]
+        public Agent ActiveAgent { get; private set; }
+        [Networked]
+        public NetworkPrefabId AgentPrefabID { get; set; }
 
-		// PUBLIC METHODS
+        // PRIVATE METHODS
 
-		public void SetActiveAgent(Agent agent)
-		{
-			ActiveAgent = agent;
-			_observedPlayer = Object.InputAuthority;
-		}
+        private PlayerRef _observedPlayer;
 
-		public void DespawnAgent()
-		{
-			if (Runner.IsServer == false)
-				return;
+        // PUBLIC METHODS
 
-			if (ActiveAgent != null && ActiveAgent.Object != null)
-			{
-				Runner.Despawn(ActiveAgent.Object);
-				ActiveAgent = null;
-			}
-		}
+        public void SetActiveAgent(Agent agent)
+        {
+            ActiveAgent = agent;
+            _observedPlayer = Object.InputAuthority;
 
-		public void UpdateStatistics(PlayerStatistics statistics)
-		{
-			Statistics = statistics;
-		}
+            // EDITED
+            if (Gender > 0)
+            {
+                ActiveAgent.GetComponent<SimpleAvatarLoader>().Gender = Gender;
+            }
 
-		public void SetObservedPlayer(PlayerRef playerRef)
-		{
-			if (playerRef.IsValid == false)
-			{
-				playerRef = Object.InputAuthority;
-			}
+            if (!string.IsNullOrEmpty(AvatarUrl))
+            {
+                ActiveAgent.GetComponent<SimpleAvatarLoader>().AvatarUrl = AvatarUrl;
+            }
+            // END
+        }
 
-			if (playerRef == _observedPlayer)
-				return;
+        public void DespawnAgent()
+        {
+            if (Runner.IsServer == false)
+                return;
 
-			RPC_SetObservedPlayer(playerRef);
-		}
+            if (ActiveAgent != null && ActiveAgent.Object != null)
+            {
+                Runner.Despawn(ActiveAgent.Object);
+                ActiveAgent = null;
+            }
+        }
 
-		// NetworkBehaviour INTERFACE
+        public void UpdateStatistics(PlayerStatistics statistics)
+        {
+            Statistics = statistics;
+        }
 
-		public override void Spawned()
-		{
-			base.Spawned();
+        public void SetObservedPlayer(PlayerRef playerRef)
+        {
+            if (playerRef.IsValid == false)
+            {
+                playerRef = Object.InputAuthority;
+            }
 
-			_observedPlayer = Object.InputAuthority;
+            if (playerRef == _observedPlayer)
+                return;
 
-			if (Object.HasInputAuthority == true)
-			{
-				Context.LocalPlayerRef = Object.InputAuthority;
-			}
+            RPC_SetObservedPlayer(playerRef);
+        }
 
-			IsInitialized = false;
-		}
+        // NetworkBehaviour INTERFACE
 
-		public override void Despawned(NetworkRunner runner, bool hasState)
-		{
-			DespawnAgent();
-		}
+        public override void Spawned()
+        {
+            base.Spawned();
 
-		public override void FixedUpdateNetwork()
-		{
-			if (Object.IsProxy == true)
-				return;
+            _observedPlayer = Object.InputAuthority;
 
-			var observedPlayer = Context.NetworkGame.GetPlayer(_observedPlayer);
-			var observedAgent = observedPlayer != null && observedPlayer.ActiveAgent != null && observedPlayer.ActiveAgent.Object != null ? observedPlayer.ActiveAgent : ActiveAgent;
+            if (Object.HasInputAuthority == true)
+            {
+                Context.LocalPlayerRef = Object.InputAuthority;
+            }
 
-			if (Runner.IsLastTick == true && Object.HasStateAuthority == true && observedAgent != null)
-			{
-				Vector3 basePosition  = observedAgent.Character.CharacterController.FixedData.TargetPosition;
-				Vector3 baseDirection = observedAgent.Character.CharacterController.FixedData.LookDirection;
+            IsInitialized = false;
+        }
 
-				Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection *  25.0f,  50.0f);
-				Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection * 100.0f,  75.0f);
-				Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection * 175.0f, 100.0f);
-			}
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            DespawnAgent();
+        }
 
-			if (Object.HasInputAuthority == true)
-			{
-				Context.ObservedAgent     = observedAgent;
-				Context.ObservedPlayerRef = observedAgent != null ? observedAgent.Object.InputAuthority : Object.InputAuthority;
-				Context.LocalPlayerRef    = Object.InputAuthority;
-			}
+        public override void FixedUpdateNetwork()
+        {
+            if (Object.IsProxy == true)
+                return;
 
-			if (IsInitialized == false && Object.HasInputAuthority == true && Runner.Stage == SimulationStages.Forward && Context.PlayerData != null)
-			{
-				var unityID = Context.PlayerData.UnityID != null ? Context.PlayerData.UnityID : string.Empty;
+            var observedPlayer = Context.NetworkGame.GetPlayer(_observedPlayer);
+            var observedAgent = observedPlayer != null && observedPlayer.ActiveAgent != null && observedPlayer.ActiveAgent.Object != null ? observedPlayer.ActiveAgent : ActiveAgent;
 
-				RPC_Initialize(Context.PeerUserID, Context.PlayerData.Nickname, Context.PlayerData.AgentPrefabID, unityID);
-				IsInitialized = true;
-			}
-		}
+            if (Runner.IsLastTick == true && Object.HasStateAuthority == true && observedAgent != null)
+            {
+                Vector3 basePosition = observedAgent.Character.CharacterController.FixedData.TargetPosition;
+                Vector3 baseDirection = observedAgent.Character.CharacterController.FixedData.LookDirection;
 
-		// RPCs
+                Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection * 25.0f, 50.0f);
+                Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection * 100.0f, 75.0f);
+                Runner.AddPlayerAreaOfInterest(Object.InputAuthority, basePosition + baseDirection * 175.0f, 100.0f);
+            }
 
-		[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, Channel = RpcChannel.Reliable)]
-		private void RPC_Initialize(string userID, string nickname, NetworkPrefabId agentPrefabID, string unityID)
-		{
-			#if UNITY_EDITOR
-			nickname += $" {Object.InputAuthority}";
-			#endif
+            if (Object.HasInputAuthority == true)
+            {
+                Context.ObservedAgent = observedAgent;
+                Context.ObservedPlayerRef = observedAgent != null ? observedAgent.Object.InputAuthority : Object.InputAuthority;
+                Context.LocalPlayerRef = Object.InputAuthority;
+            }
 
-			UserID = userID;
-			Nickname = nickname;
-			AgentPrefabID = agentPrefabID;
-			UnityID = unityID;
+            if (IsInitialized == false && Object.HasInputAuthority == true && Runner.Stage == SimulationStages.Forward && Context.PlayerData != null)
+            {
+                var unityID = Context.PlayerData.UnityID != null ? Context.PlayerData.UnityID : string.Empty;
 
-			IsInitialized = true;
-		}
+                // EDITED
+                //RPC_Initialize(Context.PeerUserID, Context.PlayerData.Nickname, Context.PlayerData.AgentPrefabID, unityID);
+                RPC_Initialize(Context.PeerUserID, Context.PlayerData.Nickname, Context.PlayerData.AvatarUrl, Context.PlayerData.Gender, Context.PlayerData.AgentPrefabID, unityID);
+                // END
 
-		[Rpc(RpcSources.StateAuthority | RpcSources.InputAuthority, RpcTargets.StateAuthority | RpcTargets.InputAuthority, Channel = RpcChannel.Reliable)]
-		private void RPC_SetObservedPlayer(PlayerRef player)
-		{
-			_observedPlayer = player;
-		}
+                IsInitialized = true;
+            }
+        }
 
-		// NETWORK CALLBACKS
+        // RPCs
 
-		public static void OnActiveAgentChanged(Changed<Player> changed)
-		{
-			if (changed.Behaviour.ActiveAgent != null)
-			{
-				// New active agent assigned (spawn), let's observe this player again
-				changed.Behaviour._observedPlayer = changed.Behaviour.Object.InputAuthority;
-			}
-		}
-	}
+        // EDITED
+        /*
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, Channel = RpcChannel.Reliable)]
+        private void RPC_Initialize(string userID, string nickname, NetworkPrefabId agentPrefabID, string unityID)
+        {
+#if UNITY_EDITOR
+            nickname += $" {Object.InputAuthority}";
+#endif
+            UserID = userID;
+            Nickname = nickname;
+            AgentPrefabID = agentPrefabID;
+            UnityID = unityID;
+
+            IsInitialized = true;
+        }
+        */
+
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, Channel = RpcChannel.Reliable)]
+        private void RPC_Initialize(string userID, string nickname, string avatarurl, int gender, NetworkPrefabId agentPrefabID, string unityID)
+        {
+#if UNITY_EDITOR
+            nickname += $" {Object.InputAuthority}";
+#endif
+
+            UserID = userID;
+            Nickname = nickname;
+            AgentPrefabID = agentPrefabID;
+            UnityID = unityID;
+            AvatarUrl = avatarurl;
+            Gender = gender;
+
+            IsInitialized = true;
+        }
+        // END
+
+        [Rpc(RpcSources.StateAuthority | RpcSources.InputAuthority, RpcTargets.StateAuthority | RpcTargets.InputAuthority, Channel = RpcChannel.Reliable)]
+        private void RPC_SetObservedPlayer(PlayerRef player)
+        {
+            _observedPlayer = player;
+        }
+
+        // NETWORK CALLBACKS
+
+        public static void OnActiveAgentChanged(Changed<Player> changed)
+        {
+            if (changed.Behaviour.ActiveAgent != null)
+            {
+                // New active agent assigned (spawn), let's observe this player again
+                changed.Behaviour._observedPlayer = changed.Behaviour.Object.InputAuthority;
+            }
+        }
+    }
 }

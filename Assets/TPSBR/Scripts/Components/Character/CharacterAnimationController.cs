@@ -4,251 +4,254 @@ using Fusion.Animations;
 
 namespace TPSBR
 {
-	using UnityEngine;
+    using UnityEngine;
 
-	[OrderAfter(typeof(KCC))]
-	public sealed class CharacterAnimationController : AnimationController
-	{
-		// PRIVATE MEMBERS
+    [OrderAfter(typeof(KCC))]
+    public sealed class CharacterAnimationController : AnimationController
+    {
+        // PRIVATE MEMBERS
 
-		[SerializeField]
-		private Transform       _leftHand;
-		[SerializeField]
-		private Transform       _leftLowerArm;
-		[SerializeField]
-		private Transform       _leftUpperArm;
-		[SerializeField][Range(0.0f, 1.0f)]
-		private float           _aimSnapPower = 0.5f;
+        [SerializeField]
+        private Transform _leftHand;
+        [SerializeField]
+        private Transform _leftLowerArm;
+        [SerializeField]
+        private Transform _leftUpperArm;
 
-		private KCC             _kcc;
-		private Agent           _agent;
-		private Weapons         _weapons;
-		private Jetpack         _jetpack;
+        [SerializeField]
+        [Range(0.0f, 1.0f)]
+        private float _aimSnapPower = 0.5f;
 
-		private LocomotionLayer _locomotion;
-		private FullBodyLayer   _fullBody;
-		private LowerBodyLayer  _lowerBody;
-		private UpperBodyLayer  _upperBody;
-		private ShootLayer      _shoot;
-		private LookLayer       _look;
+        private KCC _kcc;
+        private Agent _agent;
+        private Weapons _weapons;
+        private Jetpack _jetpack;
 
-		// PUBLIC METHODS
+        private LocomotionLayer _locomotion;
+        private FullBodyLayer _fullBody;
+        private LowerBodyLayer _lowerBody;
+        private UpperBodyLayer _upperBody;
+        private ShootLayer _shoot;
+        private LookLayer _look;
 
-		public bool CanJump()
-		{
-			if (_fullBody.IsActive() == true)
-			{
-				if (_fullBody.Jump.IsActive(true) == true)
-					return false;
-				if (_fullBody.Fall.IsActive(true) == true)
-					return false;
-				if (_fullBody.Dead.IsActive(true) == true)
-					return false;
-				if (_fullBody.Jetpack.IsActive(true) == true)
-					return false;
-			}
+        // PUBLIC METHODS
 
-			return true;
-		}
+        public bool CanJump()
+        {
+            if (_fullBody.IsActive() == true)
+            {
+                if (_fullBody.Jump.IsActive(true) == true)
+                    return false;
+                if (_fullBody.Fall.IsActive(true) == true)
+                    return false;
+                if (_fullBody.Dead.IsActive(true) == true)
+                    return false;
+                if (_fullBody.Jetpack.IsActive(true) == true)
+                    return false;
+            }
 
-		public bool CanSwitchWeapons(bool force)
-		{
-			if (_fullBody.IsActive() == true)
-			{
-				if (_fullBody.Dead.IsActive() == true)
-					return false;
-				if (_fullBody.Jetpack.IsActive() == true)
-					return false;
-			}
+            return true;
+        }
 
-			if (_upperBody.IsActive() == true)
-			{
-				if (_upperBody.Grenade.IsActive() == true && _upperBody.Grenade.CanSwitchWeapon() == false)
-					return false;
-				if (force == false && (_upperBody.Equip.IsActive() == true || _upperBody.Unequip.IsActive() == true))
-					return false;
-			}
+        public bool CanSwitchWeapons(bool force)
+        {
+            if (_fullBody.IsActive() == true)
+            {
+                if (_fullBody.Dead.IsActive() == true)
+                    return false;
+                if (_fullBody.Jetpack.IsActive() == true)
+                    return false;
+            }
 
-			return true;
-		}
+            if (_upperBody.IsActive() == true)
+            {
+                if (_upperBody.Grenade.IsActive() == true && _upperBody.Grenade.CanSwitchWeapon() == false)
+                    return false;
+                if (force == false && (_upperBody.Equip.IsActive() == true || _upperBody.Unequip.IsActive() == true))
+                    return false;
+            }
 
-		public void SetDead(bool isDead)
-		{
-			if (isDead == true)
-			{
-				_fullBody.Dead.Activate(0.2f);
+            return true;
+        }
 
-				if (_kcc.Data.IsGrounded == true)
-				{
-					_kcc.SetLayer(LayerMask.NameToLayer("Ignore Raycast"));
-					_kcc.SetLayerMask(_kcc.Settings.CollisionLayerMask & ~(1 << LayerMask.NameToLayer("AgentKCC")));
-				}
+        public void SetDead(bool isDead)
+        {
+            if (isDead == true)
+            {
+                _fullBody.Dead.Activate(0.2f);
 
-				_upperBody.DeactivateAllStates(0.2f);
-				_look.DeactivateAllStates(0.2f);
-			}
-			else
-			{
-				_fullBody.Dead.Deactivate(0.2f);
-				_kcc.SetShape(EKCCShape.Capsule);
-			}
-		}
+                if (_kcc.Data.IsGrounded == true)
+                {
+                    _kcc.SetLayer(LayerMask.NameToLayer("Ignore Raycast"));
+                    _kcc.SetLayerMask(_kcc.Settings.CollisionLayerMask & ~(1 << LayerMask.NameToLayer("AgentKCC")));
+                }
 
-		public bool StartFire()
-		{
-			if (_fullBody.Dead.IsActive() == true)
-					return false;
-			if (_upperBody.HasActiveState() == true)
-				return false;
+                _upperBody.DeactivateAllStates(0.2f);
+                _look.DeactivateAllStates(0.2f);
+            }
+            else
+            {
+                _fullBody.Dead.Deactivate(0.2f);
+                _kcc.SetShape(EKCCShape.Capsule);
+            }
+        }
 
-			_shoot.Shoot.AnimationTime = 0.0f;
-			_shoot.Shoot.Activate(0.2f);
-			return true;
-		}
+        public bool StartFire()
+        {
+            if (_fullBody.Dead.IsActive() == true)
+                return false;
+            if (_upperBody.HasActiveState() == true)
+                return false;
 
-		public void ProcessThrow(bool start, bool hold)
-		{
-			_upperBody.Grenade.ProcessThrow(start, hold);
-		}
+            _shoot.Shoot.AnimationTime = 0.0f;
+            _shoot.Shoot.Activate(0.2f);
+            return true;
+        }
 
-		public bool StartReload()
-		{
-			if (_upperBody.Grenade.IsActive() == true)
-				return _upperBody.Grenade.ProcessReload();
+        public void ProcessThrow(bool start, bool hold)
+        {
+            _upperBody.Grenade.ProcessThrow(start, hold);
+        }
 
-			if (_fullBody.Dead.IsActive() == true)
-				return false;
-			if (_upperBody.Reload.IsActive() == true)
-				return true;
-			if (_upperBody.HasActiveState() == true)
-				return false;
+        public bool StartReload()
+        {
+            if (_upperBody.Grenade.IsActive() == true)
+                return _upperBody.Grenade.ProcessReload();
 
-			_upperBody.Reload.Activate(0.2f);
-			return true;
-		}
+            if (_fullBody.Dead.IsActive() == true)
+                return false;
+            if (_upperBody.Reload.IsActive() == true)
+                return true;
+            if (_upperBody.HasActiveState() == true)
+                return false;
 
-		public void SwitchWeapons()
-		{
-			_upperBody.Reload.Deactivate(0.2f);
+            _upperBody.Reload.Activate(0.2f);
+            return true;
+        }
 
-			if (_weapons.PendingWeapon is ThrowableWeapon)
-			{
-				_upperBody.Grenade.Equip();
-				return;
-			}
+        public void SwitchWeapons()
+        {
+            _upperBody.Reload.Deactivate(0.2f);
 
-			if (_weapons.PendingWeaponSlot > 0)
-			{
-				_weapons.DisarmCurrentWeapon();
+            if (_weapons.PendingWeapon is ThrowableWeapon)
+            {
+                _upperBody.Grenade.Equip();
+                return;
+            }
 
-				_upperBody.Equip.AnimationTime = 0.0f;
-				_upperBody.Equip.Activate(0.2f);
-			}
-			else
-			{
-				_upperBody.Unequip.AnimationTime = 0.0f;
-				_upperBody.Unequip.Activate(0.2f);
-			}
-		}
+            if (_weapons.PendingWeaponSlot > 0)
+            {
+                _weapons.DisarmCurrentWeapon();
 
-		public void Turn(float angle)
-		{
-			_lowerBody.Turn.Refresh(angle);
-		}
+                _upperBody.Equip.AnimationTime = 0.0f;
+                _upperBody.Equip.Activate(0.2f);
+            }
+            else
+            {
+                _upperBody.Unequip.AnimationTime = 0.0f;
+                _upperBody.Unequip.Activate(0.2f);
+            }
+        }
 
-		public void RefreshSnapping()
-		{
-			SnapWeapon();
-		}
+        public void Turn(float angle)
+        {
+            _lowerBody.Turn.Refresh(angle);
+        }
 
-		// AnimationController INTERFACE
+        public void RefreshSnapping()
+        {
+            SnapWeapon();
+        }
 
-		protected override void OnSpawned()
-		{
-			if (HasStateAuthority == true)
-			{
-				Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-			}
+        // AnimationController INTERFACE
 
-			_locomotion.Move.Activate(0.0f);
+        protected override void OnSpawned()
+        {
+            if (HasStateAuthority == true)
+            {
+                Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            }
 
-			if (_weapons.IsSwitchingWeapon() == true)
-			{
-				SwitchWeapons();
-			}
-		}
+            _locomotion.Move.Activate(0.0f);
 
-		protected override void OnFixedUpdate()
-		{
-			if (_jetpack.IsActive == true && _fullBody.Jetpack.IsActive() == false)
-			{
-				_upperBody.Reload.Deactivate(0.2f);
+            if (_weapons.IsSwitchingWeapon() == true)
+            {
+                SwitchWeapons();
+            }
+        }
 
-				_weapons.DisarmCurrentWeapon();
+        protected override void OnFixedUpdate()
+        {
+            if (_jetpack.IsActive == true && _fullBody.Jetpack.IsActive() == false)
+            {
+                _upperBody.Reload.Deactivate(0.2f);
 
-				_fullBody.Jetpack.Activate(0.1f);
-			}
-			else if (_jetpack.IsActive == false && _fullBody.Jetpack.IsActive() == true)
-			{
-				_fullBody.Jetpack.Deactivate(0.1f);
+                _weapons.DisarmCurrentWeapon();
 
-				SwitchWeapons(); // Equip pending weapon
-			}
-		}
+                _fullBody.Jetpack.Activate(0.1f);
+            }
+            else if (_jetpack.IsActive == false && _fullBody.Jetpack.IsActive() == true)
+            {
+                _fullBody.Jetpack.Deactivate(0.1f);
 
-		protected override void OnEvaluate()
-		{
-			SnapWeapon();
-		}
+                SwitchWeapons(); // Equip pending weapon
+            }
+        }
 
-		// MonoBehaviour INTERFACE
+        protected override void OnEvaluate()
+        {
+            SnapWeapon();
+        }
 
-		protected override void Awake()
-		{
-			base.Awake();
+        // MonoBehaviour INTERFACE
 
-			_kcc        = this.GetComponentNoAlloc<KCC>();
-			_agent      = this.GetComponentNoAlloc<Agent>();
-			_weapons    = this.GetComponentNoAlloc<Weapons>();
-			_jetpack    = this.GetComponentNoAlloc<Jetpack>();
+        protected override void Awake()
+        {
+            base.Awake();
 
-			_locomotion = FindLayer<LocomotionLayer>();
-			_fullBody   = FindLayer<FullBodyLayer>();
-			_lowerBody  = FindLayer<LowerBodyLayer>();
-			_upperBody  = FindLayer<UpperBodyLayer>();
-			_shoot      = FindLayer<ShootLayer>();
-			_look       = FindLayer<LookLayer>();
-		}
+            _kcc = this.GetComponentNoAlloc<KCC>();
+            _agent = this.GetComponentNoAlloc<Agent>();
+            _weapons = this.GetComponentNoAlloc<Weapons>();
+            _jetpack = this.GetComponentNoAlloc<Jetpack>();
 
-		// PRIVATE METHODS
+            _locomotion = FindLayer<LocomotionLayer>();
+            _fullBody = FindLayer<FullBodyLayer>();
+            _lowerBody = FindLayer<LowerBodyLayer>();
+            _upperBody = FindLayer<UpperBodyLayer>();
+            _shoot = FindLayer<ShootLayer>();
+            _look = FindLayer<LookLayer>();
+        }
 
-		private void SnapWeapon()
-		{
-			if (ApplicationSettings.IsBatchServer == true)
-				return;
-			if (_weapons.CurrentWeapon == null || CanSnapHand() == false)
-				return;
+        // PRIVATE METHODS
 
-			Transform weaponHandle = _weapons.WeaponHandle;
-			if (HasInputAuthority == true)
-			{
-				weaponHandle.localRotation = _weapons.WeaponBaseRotation;
+        private void SnapWeapon()
+        {
+            if (ApplicationSettings.IsBatchServer == true)
+                return;
+            if (_weapons.CurrentWeapon == null || CanSnapHand() == false)
+                return;
 
-				Quaternion handleRotation = weaponHandle.rotation;
-				Quaternion targetRotation = Quaternion.LookRotation(_agent.Context.Camera.transform.position + _agent.Context.Camera.transform.forward * 100.0f - weaponHandle.position);
+            Transform weaponHandle = _weapons.WeaponHandle;
+            if (HasInputAuthority == true)
+            {
+                weaponHandle.localRotation = _weapons.WeaponBaseRotation;
 
-				float   snapPower    = Mathf.Clamp(Mathf.Abs(_kcc.FixedData.LookPitch) / 60.0f, _aimSnapPower, 1.0f);
-				Vector3 snapRotation = Quaternion.Slerp(handleRotation, targetRotation, snapPower).eulerAngles;
+                Quaternion handleRotation = weaponHandle.rotation;
+                Quaternion targetRotation = Quaternion.LookRotation(_agent.Context.Camera.transform.position + _agent.Context.Camera.transform.forward * 100.0f - weaponHandle.position);
 
-				snapRotation.y = targetRotation.eulerAngles.y;
+                float snapPower = Mathf.Clamp(Mathf.Abs(_kcc.FixedData.LookPitch) / 60.0f, _aimSnapPower, 1.0f);
+                Vector3 snapRotation = Quaternion.Slerp(handleRotation, targetRotation, snapPower).eulerAngles;
 
-				weaponHandle.rotation = Quaternion.Euler(snapRotation);
-			}
-			else
-			{
-				weaponHandle.rotation = Quaternion.LookRotation(_kcc.FixedData.LookDirection);
-			}
+                snapRotation.y = targetRotation.eulerAngles.y;
 
+                weaponHandle.rotation = Quaternion.Euler(snapRotation);
+            }
+            else
+            {
+                weaponHandle.rotation = Quaternion.LookRotation(_kcc.FixedData.LookDirection);
+            }
+
+            /*
 			Transform leftHandTarget = _weapons.CurrentWeapon.LeftHandTarget;
 			if (leftHandTarget != null)
 			{
@@ -280,24 +283,25 @@ namespace TPSBR
 				_leftHand.position = leftHandTarget.position;
 				_leftHand.rotation = leftHandTarget.rotation;
 			}
-		}
+			*/
+        }
 
-		private bool CanSnapHand()
-		{
-			if (_fullBody.Dead.IsActive() == true || _fullBody.Jetpack.IsActive() == true)
-				return false;
+        private bool CanSnapHand()
+        {
+            if (_fullBody.Dead.IsActive() == true || _fullBody.Jetpack.IsActive() == true)
+                return false;
 
-			if (_upperBody.HasActiveState() == true)
-			{
-				if (_upperBody.Reload.IsFinished(0.85f) == true)
-					return true;
-				if (_upperBody.Equip.IsFinished(0.75f) == true)
-					return true;
+            if (_upperBody.HasActiveState() == true)
+            {
+                if (_upperBody.Reload.IsFinished(0.85f) == true)
+                    return true;
+                if (_upperBody.Equip.IsFinished(0.75f) == true)
+                    return true;
 
-				return false;
-			}
+                return false;
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }
