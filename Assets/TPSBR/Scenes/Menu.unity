@@ -3341,6 +3341,37 @@ Transform:
   m_Father: {fileID: 771756780}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1681815856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 10079090856109376, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
+  m_PrefabInstance: {fileID: 2401254039631547010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1681815861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681815856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 20
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1727926432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4653,6 +4684,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIAgentSelectionView
       objectReference: {fileID: 0}
+    - target: {fileID: 436912791742448353, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436912791742448353, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
+      propertyPath: m_Spacing
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4791795149307131037, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4737,6 +4776,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5454320741002779532, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 170.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454320741002779532, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 6653010138518292761, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4765,7 +4812,8 @@ PrefabInstance:
       propertyPath: m_OverrideSorting
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 436912791742448353, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4f87b79dd379ea4a8ab80e6432514fd, type: 3}
 --- !u!1001 &2785293608859047097
 PrefabInstance:
