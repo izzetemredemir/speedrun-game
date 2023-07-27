@@ -1,0 +1,66 @@
+This project uses visual and audio assets from several of our partners:
+
+--- Animations Mocap Online ---
+
+The mocaped animations are from the Shooter bundle made by Mocap Online.
+
+Website: www.mocaponline.com
+Asset Pack Link: https://mocaponline.com/products/unity3d-gdc-bundle
+Individual Packs:
+- Mobility Pro: https://assetstore.unity.com/packages/3d/animations/mobility-pro-mocap-animation-pack-46121
+- Pistol Pro: https://assetstore.unity.com/packages/3d/animations/pistol-pro-mocap-animation-pack-46984
+- Rifle Pro: https://assetstore.unity.com/packages/3d/animations/rifle-pro-mocap-animation-pack-46160
+
+--- Character Models by Marksim Burgimov ---
+
+The character model is the Renegade Character made by Marksim Bugrimov.
+
+Website: https://assetstore.unity.com/publishers/6845
+Asset Link: https://assetstore.unity.com/packages/3d/characters/humanoids/sci-fi/sci-fi-character-08-renegade-208640
+
+--- SFX & Music by Cafofo Music ---
+
+The project uses a multitude of audio assets created by Cafofo Music.
+
+Website: https://cafofomusic.com/
+Asset Links:
+- Fantasy Music Pack Vol.1 https://cafofomusic.itch.io/fantasy-music-pack-vol-1
+- Human Vocal Sounds Pro https://cafofomusic.itch.io/human-vocal-sounds-pro
+- Footsteps Sound Pack https://cafofomusic.itch.io/footsteps-sound-pack
+- Fantasy Interface Sounds https://cafofomusic.itch.io/fantasy-interface-sounds
+- Guns & Explosion Sounds https://cafofomusic.itch.io/gun-explosion-sounds
+
+--- Gun SFX by Sidearm Studios ---
+
+The guns SFX are from the Real Recorded Guns & Bullet Sounds pack provided by Sidearm Studios.
+
+Website: https://sidearmstudios.com/
+Asset Link: https://assetstore.unity.com/packages/audio/sound-fx/weapons/real-recorded-guns-bullet-sounds-161799
+
+--- Fire & Explosions VFX by Hovl Studio ---
+
+The firing and explosions VFX are from the 3D Fire and Explosions pack by Hovl Studio.
+
+Website: https://assetstore.unity.com/publishers/28391
+Asset Link: https://assetstore.unity.com/packages/vfx/particles/fire-explosions/3d-fire-and-explosions-176981
+
+--- Impact & Muzzle Flashes VFX by Kripto289 ---
+
+The bullet impact and muzzle flashes VFX are from the Impact & Muzzle Flashes pack by kripto289.
+
+Website: https://assetstore.unity.com/publishers/5224
+Asset Link: https://assetstore.unity.com/packages/vfx/particles/impacts-and-muzzle-flashes-57010
+
+--- Aircraft Model by TinForge ---
+
+The Aircraft Model used in the Battle Royale mode is from the Military Aircraft Pack by TinForge.
+
+Website: https://tinforge.com/
+Asset Link: https://assetstore.unity.com/packages/3d/vehicles/air/military-aircraft-pack-115124
+
+--- Crate Models by Mitrech ---
+
+The crate models are from the Military Base Outpost pack from by Mitrech.
+
+Website: https://mitrech.com/
+Asset Link: https://assetstore.unity.com/packages/3d/environments/military-base-outpost-194070

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5ffa8f6f22495da2d99fce2194879c, type: 3}
+  m_Name: KillsInRow_2
+  m_EditorClassIdentifier: 
+  _oneTimeAnnouncement: 0
+  _defaultSetup:
+    Priority: 200
+    Channel: 4
+    TextMessage: Double Kill
+    AudioMessage:
+      Clips:
+      - {fileID: 8300000, guid: 629719cfe8d857b4aaa77d028ed7eb75, type: 3}
+      Volume: 0.7
+      MaxPitchChange: 0
+      Delay: 0
+      Loop: 0
+      FadeIn: 0
+      FadeOut: 0
+      Repeat: 0
+      RepeatPlayCount: 0
+      RepeatDelay: 0
+    Cooldown: 1
+    Duration: 2
+    ValidTime: 2
+    Color: {r: 1, g: 0.40392157, b: 0.36862746, a: 1}
+    FeedMessage: 
+  _kills: 2
+  _inRowOnly: 1

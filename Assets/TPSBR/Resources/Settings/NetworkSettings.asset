@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6adb7ec2a2b14019b2754fb5a2f6d642, type: 3}
+  m_Name: NetworkSettings
+  m_EditorClassIdentifier: 
+  Regions:
+  - DisplayName: Auto
+    Region: 
+    Icon: {fileID: 0}
+  - DisplayName: Asia
+    Region: asia
+    Icon: {fileID: 0}
+  - DisplayName: Europe
+    Region: eu
+    Icon: {fileID: 0}
+  - DisplayName: Japan
+    Region: jp
+    Icon: {fileID: 0}
+  - DisplayName: South America
+    Region: sa
+    Icon: {fileID: 0}
+  - DisplayName: South Korea
+    Region: kr
+    Icon: {fileID: 0}
+  - DisplayName: USA, East
+    Region: us
+    Icon: {fileID: 0}
+  QueueName: battleRoyale

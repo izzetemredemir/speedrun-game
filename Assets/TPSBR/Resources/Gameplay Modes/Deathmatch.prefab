@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7530579074752114225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7530579074752114226}
+  - component: {fileID: 7530579074752114227}
+  - component: {fileID: 7530579074752114224}
+  m_Layer: 0
+  m_Name: Deathmatch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7530579074752114226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530579074752114225}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7530579074752114227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530579074752114225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fae78e32d3fd294da6835c9efddc694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 3
+  GameplayName: Deathmatch
+  MaxPlayers: 200
+  ScorePerKill: 10
+  ScorePerDeath: 0
+  ScorePerSuicide: -10
+  RespawnTime: 8
+  TimeLimit: 1200
+  BackfillTimeLimit: 1200
+  Announcements:
+  - {fileID: 11400000, guid: f4aa63f7f23037046be464cce1cccd94, type: 2}
+  - {fileID: 11400000, guid: 04c2a570f9123344f86477d56865ecaf, type: 2}
+  - {fileID: 11400000, guid: 3f0752c0b511dde45b08193d06b03120, type: 2}
+  - {fileID: 11400000, guid: cd8c1670744f57b41a4f5a2c2c63ca70, type: 2}
+  - {fileID: 11400000, guid: 954578bbf7c600c47891eecc9aef3297, type: 2}
+  - {fileID: 11400000, guid: 01c47063e7547e44a89ee33006d8b1c9, type: 2}
+  - {fileID: 11400000, guid: 3642bd91a60880740a927e4d272c9865, type: 2}
+  - {fileID: 11400000, guid: ca675588f7bef8045a28801166be6503, type: 2}
+  - {fileID: 11400000, guid: 14f423b0fb030ef419106005f9d89b0b, type: 2}
+  - {fileID: 11400000, guid: 9741e4502297e1a4e871f28eed8c505d, type: 2}
+  - {fileID: 11400000, guid: 256a2dd0e490ab14d98a05ca9680f240, type: 2}
+  - {fileID: 11400000, guid: c5c290ff99e9bf0429e5b9dff1274609, type: 2}
+  - {fileID: 11400000, guid: 9294fcd50d0f07547aa407a4a1b891bb, type: 2}
+  - {fileID: 11400000, guid: 9b9988e7c4c2e724eb751db972209419, type: 2}
+  - {fileID: 11400000, guid: da0e42120d80f0e48a67314a635f4897, type: 2}
+  - {fileID: 11400000, guid: df7777d5ea758ab4d8b95fbbbe241ffa, type: 2}
+  - {fileID: 11400000, guid: 9ed1b027c61ef5c4f95efe84204a056b, type: 2}
+  - {fileID: 11400000, guid: 54f77ecb02be847419f1bd0da33b95c5, type: 2}
+  - {fileID: 11400000, guid: 9c550c9d4a263a7448218a4e98111a5d, type: 2}
+  - {fileID: 11400000, guid: 902a63e88f4fb32438a8bb42466144ec, type: 2}
+  _State: 0
+  _type: 1
+  _useShrinkingArea: 0
+  _maxKillInRowDelay: 6
+  ScoreLimit: 250
+--- !u!114 &7530579074752114224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530579074752114225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 0
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: 21506a62fa57cad48a73f852189262e6
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 7530579074752114227}
+  SimulationBehaviours: []

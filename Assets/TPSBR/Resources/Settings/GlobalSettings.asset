@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c30145f2c2cb584b9da6d84e7ab9973, type: 3}
+  m_Name: GlobalSettings
+  m_EditorClassIdentifier: 
+  RunnerPrefab: {fileID: 3427936558554746844, guid: 36ba3480ded34f441a0d952459870465, type: 3}
+  LoadingScene: LoadingScene
+  MenuScene: Menu
+  SimulateMobileInput: 0
+  Agent: {fileID: 11400000, guid: bc0d3b3598b234945b6595818b535e11, type: 2}
+  Map: {fileID: 11400000, guid: e4dc9cb883a3cab47a3a7f8fafe0cb18, type: 2}
+  Network: {fileID: 11400000, guid: a62d9094641629149b9e79d5232837b2, type: 2}
+  DefaultOptions:
+    _values:
+    - Key: Windowed
+      Type: 1
+      BoolValue: 0
+      FloatValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: GraphicsQuality
+      Type: 3
+      BoolValue: 0
+      FloatValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      IntValue:
+        Value: 2
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: Resolution
+      Type: 3
+      BoolValue: 0
+      FloatValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      IntValue:
+        Value: -1
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: MusicVolume
+      Type: 2
+      BoolValue: 0
+      FloatValue:
+        Value: 0.4
+        MinValue: 0.001
+        MaxValue: 1
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: EffectsVolume
+      Type: 2
+      BoolValue: 0
+      FloatValue:
+        Value: 1
+        MinValue: 0.001
+        MaxValue: 1
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: TargetFPS
+      Type: 3
+      BoolValue: 0
+      FloatValue:
+        Value: 0
+        MinValue: -80
+        MaxValue: 0
+      IntValue:
+        Value: 90
+        MinValue: 30
+        MaxValue: 288
+      StringValue: 
+    - Key: LimitFPS
+      Type: 1
+      BoolValue: 1
+      FloatValue:
+        Value: 0
+        MinValue: -80
+        MaxValue: 0
+      IntValue:
+        Value: 60
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: Sensitivity
+      Type: 2
+      BoolValue: 0
+      FloatValue:
+        Value: 1
+        MinValue: 0.05
+        MaxValue: 5
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: AimSensitivity
+      Type: 2
+      BoolValue: 0
+      FloatValue:
+        Value: 0.7
+        MinValue: 0.05
+        MaxValue: 1
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: VSync
+      Type: 1
+      BoolValue: 1
+      FloatValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: 
+    - Key: Region
+      Type: 4
+      BoolValue: 0
+      FloatValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      IntValue:
+        Value: 0
+        MinValue: 0
+        MaxValue: 0
+      StringValue: eu

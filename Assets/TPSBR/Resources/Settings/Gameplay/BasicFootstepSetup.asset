@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea47a9d912017744bc1cc969c200e7e, type: 3}
+  m_Name: BasicFootstepSetup
+  m_EditorClassIdentifier: 
+  _fallbackWalkSound:
+    Clips:
+    - {fileID: 8300000, guid: 9e30d4a98224ad34c8f0dd86542ca5ba, type: 3}
+    - {fileID: 8300000, guid: b70e5e60f0faa6d4bb427dc6a18317fa, type: 3}
+    - {fileID: 8300000, guid: 6afed6aff6f40cd4cac15e7067ad9760, type: 3}
+    - {fileID: 8300000, guid: aab25dd3964e34c4798110ccb63f2550, type: 3}
+    - {fileID: 8300000, guid: b2d5ee2da21bec54fb7113051f387d05, type: 3}
+    - {fileID: 8300000, guid: 8ea916c1c236b884d8d5d0c107e71f17, type: 3}
+    Volume: 0.05
+    MaxPitchChange: 0.1
+    Delay: 0.03
+    Loop: 0
+    FadeIn: 0
+    FadeOut: 0
+    Repeat: 0
+    RepeatPlayCount: 0
+    RepeatDelay: 0
+  _fallbackRunSound:
+    Clips:
+    - {fileID: 8300000, guid: 8beb6a965d2464242956f3798f011459, type: 3}
+    - {fileID: 8300000, guid: 6382cc592ae19f24fb132ab35b4144d0, type: 3}
+    - {fileID: 8300000, guid: 6387b86e3ba539747b3b58c10b92a90f, type: 3}
+    - {fileID: 8300000, guid: 81765f6060a50c648a0ebf576a9933c7, type: 3}
+    - {fileID: 8300000, guid: 4affc17b522798d4fbd4e7c3d159888c, type: 3}
+    - {fileID: 8300000, guid: 7cccf54f3180fee44b5f1d6dd6650981, type: 3}
+    Volume: 0.6
+    MaxPitchChange: 0.1
+    Delay: 0
+    Loop: 0
+    FadeIn: 0
+    FadeOut: 0
+    Repeat: 0
+    RepeatPlayCount: 0
+    RepeatDelay: 0
+  _footsteps:
+  - Tag: Water
+    SoundWalk:
+      Clips:
+      - {fileID: 8300000, guid: d324394855fdb0e40a551d939340873a, type: 3}
+      - {fileID: 8300000, guid: f9c76dc30ff8c8146999303faf6c13a9, type: 3}
+      - {fileID: 8300000, guid: 6f55fd51e91cb864fac8d40bf56b6a7e, type: 3}
+      - {fileID: 8300000, guid: 06c607e4d74236545997fefd3b335357, type: 3}
+      - {fileID: 8300000, guid: ec18f67d0ab20c2498fd8adc80507522, type: 3}
+      - {fileID: 8300000, guid: b7127f4f6022deb4bbb5281333af9653, type: 3}
+      Volume: 0.3
+      MaxPitchChange: 0.1
+      Delay: 0
+      Loop: 0
+      FadeIn: 0
+      FadeOut: 0
+      Repeat: 0
+      RepeatPlayCount: 0
+      RepeatDelay: 0
+    SoundRun:
+      Clips:
+      - {fileID: 8300000, guid: 8a4894eb127ea444cbc4d9e4812b97de, type: 3}
+      - {fileID: 8300000, guid: 16b7bad38a09190418d3f92a922eb04c, type: 3}
+      - {fileID: 8300000, guid: 2bc7a1c5538c5e44ba0743e29f99533f, type: 3}
+      - {fileID: 8300000, guid: b737b8ab6827db34facb12c188debb5b, type: 3}
+      - {fileID: 8300000, guid: 2a212613b77991241baaa0c8f31e76ae, type: 3}
+      - {fileID: 8300000, guid: ded04416056832d4fbda7cde5e81905f, type: 3}
+      Volume: 0.75
+      MaxPitchChange: 0.1
+      Delay: 0
+      Loop: 0
+      FadeIn: 0
+      FadeOut: 0
+      Repeat: 0
+      RepeatPlayCount: 0
+      RepeatDelay: 0

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc35bb11ba30423f9e5520fcb25ee9b8, type: 3}
+  m_Name: RemainingTime_60
+  m_EditorClassIdentifier: 
+  _oneTimeAnnouncement: 1
+  _defaultSetup:
+    Priority: 0
+    Channel: 1
+    TextMessage: 
+    AudioMessage:
+      Clips:
+      - {fileID: 8300000, guid: 67d4bfd01de56ce47a9af02c4364338e, type: 3}
+      Volume: 1
+      MaxPitchChange: 0
+      Delay: 0
+      Loop: 0
+      FadeIn: 0
+      FadeOut: 0
+      Repeat: 0
+      RepeatPlayCount: 0
+      RepeatDelay: 0
+    Cooldown: 0
+    Duration: 3
+    ValidTime: 5
+  _remainingTime: 60

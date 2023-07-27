@@ -1,0 +1,36 @@
+PLEASE SEE THE PDF VERSION WITH IMAGES!
+Mocap Online - Unity Rifle Attachment - 03/13/2019
+
+Rifle > "RightHandMiddle1"
+
+
+The Rifle should be attached/parented to the "RightHandMiddle1" finger bone of MotusMan for the Rifle to be placed and animated correctly. This allows for better looking arm and wrist angles instead of a hard attachment to the hand.
+
+The exact local placement on MotusMan_v55 is:
+
+Position
+X =	.022
+Y =	-.036
+Z =	.0095
+
+Rotation
+X =	-44.255
+Y =	96.592
+Z =	71.58
+
+Use this placement reference and the included "UNITY_Rifle_Position" images as a guide. 
+
+
+
+**Attaching and Positioning the Rifle on Your Character:**
+
+Attach the Rifle to your target Character's First Middle Finger bone. Your Character will likely have different local numbers than MotusMan's.
+
+Set "W2_Stand_Aim_Point_Center" as the "Layer Default State" in the Demo Animator Controller, click "Play" and adjust/move/rotate the Rifle while the Scene is playing.
+
+Use ISO views to line up the Rifle squarely and correctly in the hands, similarly to how it looks on MotusMan. When you have it looking good, take notes and remember the Rifle Position and Rotation numbers that are shown in the Inspector.
+
+Stop the Scene playing, and the Rifle will revert to its original placement.
+Type the Pos and Rot numbers you noted during play into the Inspector for the Rifle. Save your Scene.
+
+Repeat the process to further tweak the placement as desired.
