@@ -23,9 +23,9 @@ MonoBehaviour:
     _icon: {fileID: 21300000, guid: 074e27806d341f744a7b4c543c417d0f, type: 3}
     _agentPrefab: {fileID: 7474251926991540351, guid: 91bd50b2b85386649bc3a32d1fdde433, type: 3}
     _menuAgentPrefab: {fileID: 534883156551135047, guid: 359d93393141eb8468be6f018348b341, type: 3}
-  - _id: Agent.Soldier
-    _displayName: Soldier 66
-    _description: Nobody knows where Soldier 66 came from. There are rumors that
+  - _id: Agent.SolanaWarrior
+    _displayName: Solana Warrior
+    _description: Nobody knows where SOLANA WARRIOR came from. There are rumors that
       he was a high profile hitman before undergoing a series of experimental operations
       to become half human and half machine. He is famous for not following any sort
       of rules which makes him particularly dangerous... thing.

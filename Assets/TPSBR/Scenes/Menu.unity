@@ -302,9 +302,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1418317989083816293, guid: 2c0ca0a02e6fdb04a8bc2f1c5092b99c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4812693784967572773, guid: 2c0ca0a02e6fdb04a8bc2f1c5092b99c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000022888184
+      value: -0.000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 5841626621723555738, guid: 2c0ca0a02e6fdb04a8bc2f1c5092b99c, type: 3}
       propertyPath: m_Pivot.x
@@ -4367,7 +4371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 663030405962255693, guid: 48e1b3dca8b7c274bb2275ef2334747e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 178.00002
       objectReference: {fileID: 0}
     - target: {fileID: 663030405962255693, guid: 48e1b3dca8b7c274bb2275ef2334747e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5105,6 +5109,22 @@ PrefabInstance:
     - target: {fileID: 661238516124962326, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851021239285791736, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
+      propertyPath: m_text
+      value: Option C
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660186142260104169, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Option C
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660186142260104169, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: Option A
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660186142260104169, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      value: Option B
       objectReference: {fileID: 0}
     - target: {fileID: 4044049611845450991, guid: 35efa7bd1b6d4244f94d68385b45c7af, type: 3}
       propertyPath: m_SortingOrder
