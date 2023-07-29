@@ -33,7 +33,7 @@
 
 
 ## In-game screenshots
-
+![WhatsApp Image 2023-07-30 at 02 08 33](https://github.com/izzetemredemir/speedrun-game/assets/11755605/2ac0167d-eb8a-4678-9414-73561c78cea6)
 ![WhatsApp Image 2023-07-29 at 23 44 01](https:![WhatsApp Image 2023-07-29 at 23 43 40](https://github.com/izzetemredemir/speedrun-game/assets/11755605/ae3a3a7e-f6a3-47ce-a3fd-9a4006c32493)
 ![WhatsApp Image 2023-07-29 at 23 43 40](https://github.com/izzetemredemir/speedrun-game/assets/11755605/ec44c085-e529-4431-9b03-03a1638aa08f)
 ![WhatsApp Image 2023-07-29 at 23 43 15](https://github.com/izzetemredemir/speedrun-game/assets/11755605/a6bc2626-b30f-4067-8294-164b3d306097)
