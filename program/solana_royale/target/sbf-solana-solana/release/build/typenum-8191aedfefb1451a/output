@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/felix/Documents/solana/speedrun-game/contracts/solana_royale/target/sbf-solana-solana/release/build/typenum-8191aedfefb1451a/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/felix/Documents/solana/speedrun-game/contracts/solana_royale/target/sbf-solana-solana/release/build/typenum-8191aedfefb1451a/out/op.rs
