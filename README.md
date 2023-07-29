@@ -28,8 +28,7 @@
     git clone https://github.com/izzetemredemir/speedrun-game
     ```
 2. Open the project with Unity.
-3. Install the necessary dependen![WhatsApp Image 2023-07-29 at 23 44 37](https://github.com/izzetemredemir/speedrun-game/assets/11755605/b504e852-8cb5-4b95-ab54-eeb8a3cb49e2)
-cies.
+3. Install the necessary dependencies.
 4. Press the `Play` button to start the game!
 
 
