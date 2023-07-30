@@ -4,9 +4,11 @@
 
 **Solana Royale** is a unique battleground game where upgrades can be bought at the start of each round, and some of the buyable items can be looted in the game. Powered by blockchain technology, this game offers a world filled with real-time trading and rare items.
 
-Deployed on Devnet: `program ID:6D1ys5CYQy3w8u9SFU6DHZaHdZa2zEBwF9MU3rZAaYvB`
+Deployed on Devnet (Native Rust): `program ID:6D1ys5CYQy3w8u9SFU6DHZaHdZa2zEBwF9MU3rZAaYvB`
 
 [Native Contract Code](https://beta.solpg.io/64c63283a405f0460023a6c0)
+
+Deployed on Devnet (Anchor Framework): `program ID: AWvBYgqFn5o98tt7R8bUCZJJSobAoci86KXsb8ZoCEfF`
 
 [Anchor Contract Code](https://beta.solpg.io/64c6df57a405f0460023a6c1)
 
