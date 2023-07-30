@@ -1,132 +1,88 @@
 use solana_program::{
-    account_info::AccountInfo, pubkey::Pubkey,
-    program_error::ProgramError, entrypoint::ProgramResult,
+    account_info::{next_account_info, AccountInfo},
+    entrypoint,
+    entrypoint::ProgramResult,
+    msg,
+    program_error::ProgramError,
+    program_pack::{IsInitialized, Pack, Sealed},
+    pubkey::Pubkey,
+    sysvar::{rent::Rent, Sysvar},
 };
 
-use std::collections::HashMap;
+use std::convert::TryInto;
 
-solana_program::declare_id!("3sGJfM8VcJt29D1CfrM9tiF7GKvoG3z45P3MGivK2eLc");
+solana_program::declare_id!("6D1ys5CYQy3w8u9SFU6DHZaHdZa2zEBwF9MU3rZAaYvB");
 
-use borsh::{BorshSerialize, BorshDeserialize};
-
-// Define the token struct
-#[derive(Clone, Debug, PartialEq, BorshSerialize, BorshDeserialize)]
-pub struct Token {
-    pub name: String,
-    pub symbol: String,
-    pub total_supply: u64,
-    pub decimals: u8,
-    pub owner: Pubkey,
-    pub balances: HashMap<Pubkey, u64>,
-    pub owner_names: HashMap<Pubkey, String>, // Map owner address to their name
+pub struct PlayerScore {
+    pub player_name: Pubkey,
+    pub score: u64,
 }
 
-// Create a new token with a given name, symbol, total supply, and decimals
-pub fn create_token(
-    accounts: &[AccountInfo],
-    name: String,
-    symbol: String,
-    total_supply: u64,
-    decimals: u8,
-) -> ProgramResult {
-    // Get the accounts
-    let token_account = &accounts[0];
-    let owner_account = &accounts[1];
-    let system_program_account = &accounts[2];
-    let rent_account = &accounts[3];
+impl Sealed for PlayerScore {}
 
-    // Ensure the provided accounts are valid
-    if !token_account.is_signer {
-        return Err(ProgramError::MissingRequiredSignature);
+impl IsInitialized for PlayerScore {
+    fn is_initialized(&self) -> bool {
+        self.player_name != Pubkey::default()
     }
-
-    // Check if the token account is not already initialized
-    if token_account.data.borrow()[0] != 0 {
-        return Err(ProgramError::AccountAlreadyInitialized);
-    }
-
-    // Token data to store in the token account
-    let mut data = Token {
-        name,
-        symbol,
-        total_supply,
-        decimals,
-        owner: *owner_account.key,
-        balances: HashMap::new(),
-        owner_names: HashMap::new(),
-    };
-
-    // Set the total supply as the balance of the token's owner
-    data.balances.insert(*owner_account.key, total_supply);
-
-    // Serialize and store the data in the token account
-    data.serialize(&mut &mut token_account.data.borrow_mut()[..])?;
-
-    Ok(())
 }
 
-pub fn transfer(
-    accounts: &[AccountInfo],
-    amount: u64,
-    to: Pubkey,
-) -> ProgramResult {
-    // Get the accounts
-    let token_account = &accounts[0];
-    let from_account = &accounts[1];
-    let to_account = &accounts[2];
+impl Pack for PlayerScore {
+    const LEN: usize = 32 + 8; // size of Pubkey + size of u64
 
-    // Ensure the provided accounts are valid
-    if !from_account.is_signer {
-        return Err(ProgramError::MissingRequiredSignature);
+    fn pack_into_slice(&self, dst: &mut [u8]) {
+        let src = self.player_name.as_ref();
+        dst[..32].copy_from_slice(src);
+        let score_bytes = self.score.to_le_bytes();
+        dst[32..].copy_from_slice(&score_bytes);
     }
 
-    // Get the token data from the token account
-    let mut data = Token::deserialize(&mut &token_account.data.borrow()[..])?;
-
-    // Check if the sender has sufficient balance
-    let from_balance_entry = data.balances.get_mut(from_account.key).ok_or(ProgramError::InvalidAccountData)?;
-    if *from_balance_entry < amount {
-        return Err(ProgramError::Custom(1)); // InsufficientBalance error (custom error code)
+    fn unpack_from_slice(src: &[u8]) -> Result<Self, ProgramError> {
+        let player_name = Pubkey::new(&src[..32]);
+        let score = u64::from_le_bytes(src[32..].try_into().unwrap());
+        Ok(Self { player_name, score })
     }
-
-    // Check if the "to" account is different from the "from" account
-    if from_account.key == to_account.key {
-        return Err(ProgramError::InvalidArgument); // Cannot transfer to the same account
-    }
-
-    // Perform the transfer
-    //let to_balance_entry = data.balances.get_mut(&to).ok_or(ProgramError::InvalidAccountData)?;
-    *from_balance_entry -= amount;
-    //*to_balance_entry += amount;
-
-    // Serialize and store the updated data back to the token account
-    data.serialize(&mut &mut token_account.data.borrow_mut()[..])?;
-
-    Ok(())
 }
 
-// Associate a name with the token owner's address
-pub fn set_owner_name(
-    accounts: &[AccountInfo],
-    owner_name: String,
-) -> ProgramResult {
-    // Get the accounts
-    let token_account = &accounts[0];
-    let owner_account = &accounts[1];
+entrypoint!(process_instruction);
 
-    // Ensure the provided accounts are valid
-    if !owner_account.is_signer {
-        return Err(ProgramError::MissingRequiredSignature);
+pub enum Instruction {
+    Upgrade,
+    SetScore(u64),
+}
+
+pub fn process_instruction(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    input: &[u8],
+) -> ProgramResult {
+    let account_info_iter = &mut accounts.iter();
+    let account = next_account_info(account_info_iter)?;
+
+    if account.owner != program_id {
+        msg!("Account does not have the correct program id");
+        return Err(ProgramError::IncorrectProgramId);
     }
 
-    // Get the token data from the token account
-    let mut data = Token::deserialize(&mut &token_account.data.borrow()[..])?;
+    let mut player_score = PlayerScore::unpack_unchecked(&account.data.borrow())?;
 
-    // Store the owner's name in the owner_names mapping
-    data.owner_names.insert(*owner_account.key, owner_name);
+    match input[0] {
+        0 => {
+            if player_score.score >= 500 {
+                msg!("Player score before deduction: {}", player_score.score);
+                player_score.score -= 500;
+                msg!("Player score after deduction: {}", player_score.score);
+            } else {
+                msg!("Player score is less than 500. No deduction will be made.");
+            }
+        }
+        1 => {
+            let new_score = u64::from_le_bytes(input[1..].try_into().unwrap());
+            player_score.score = new_score;
+        }
+        _ => return Err(ProgramError::InvalidInstructionData),
+    }
 
-    // Serialize and store the updated data back to the token account
-    data.serialize(&mut &mut token_account.data.borrow_mut()[..])?;
+    PlayerScore::pack(player_score, &mut account.data.borrow_mut())?;
 
     Ok(())
 }
