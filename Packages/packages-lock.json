@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.atteneder.gltfast": {
-      "version": "https://github.com/atteneder/glTFast.git#v5.0.0",
+      "version": "https://github.com/atteneder/glTFast.git",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -10,7 +10,7 @@
         "com.unity.mathematics": "1.2.6",
         "com.unity.burst": "1.6.6"
       },
-      "hash": "76f76584a113b240a4ec11f324b17302bde9a53a"
+      "hash": "5c36f4405012b13ad14ec871b77ba063c53cbbc3"
     },
     "com.readyplayerme.avatarloader": {
       "version": "https://github.com/readyplayerme/rpm-unity-sdk-avatar-loader.git",
@@ -40,6 +40,16 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
       "hash": "b850044d667a9bf7c71c3805a01188d42e35c2b2"
+    },
+    "com.solana.unity_sdk": {
+      "version": "https://github.com/magicblock-labs/Solana.Unity-SDK.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.textmeshpro": "3.0.6"
+      },
+      "hash": "e69d6a434ecf531e0d5ad2e40e98e32dae6887d4"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

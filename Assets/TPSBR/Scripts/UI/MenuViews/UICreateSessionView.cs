@@ -134,7 +134,7 @@ namespace TPSBR.UI
 			var options = ListPool.Get<string>(16);
 
 			int defaultOption = 0;
-			int i = 2;
+			int i = 0;
 			foreach (EGameplayType value in System.Enum.GetValues(typeof(EGameplayType)))
 			{
 				if (value == EGameplayType.None)
