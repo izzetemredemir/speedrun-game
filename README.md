@@ -6,6 +6,11 @@
 
 Deployed on Devnet: `program ID:6D1ys5CYQy3w8u9SFU6DHZaHdZa2zEBwF9MU3rZAaYvB`
 
+
+![ezgif com-video-to-gif (2)](https://github.com/izzetemredemir/speedrun-game/assets/11755605/d45721c6-bed6-4358-9395-5ec37a47ce5a)
+![ezgif com-video-to-gif (3)](https://github.com/izzetemredemir/speedrun-game/assets/11755605/60c58a36-5d70-4563-b35f-8fdc0776916f)
+
+
 ## Tech Stack 🛠️
 
 - **Unity**: Developed using Unity, the industry standard as the game engine.
